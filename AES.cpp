@@ -315,6 +315,75 @@ void SBoxD(string &ciag1)
 
 }
 
+void OperacjaFSBox(int X, string ciag1)
+{
+	string Ik1 = ciag1;
+	string IIk1 = ciag1;
+	string IIIk1 = ciag1;
+	string IVk1 = ciag1;
+
+	Ik1.erase(4, 12);
+	IIk1.erase(8, 8);
+	IIk1.erase(0, 4);
+	IIIk1.erase(12, 4);
+	IIIk1.erase(0, 8);
+	IVk1.erase(0, 12);
+
+	if (X == 1)
+	{
+		SBoxE(Ik1);
+		SBoxE(IIk1);
+		SBoxE(IIIk1);
+		SBoxE(IVk1);
+	}
+	else
+	{
+		SBoxD(Ik1);
+		SBoxD(IIk1);
+		SBoxD(IIIk1);
+		SBoxD(IVk1);
+	}
+}
+
+void GeneracjaKluczaIiII(string ciag1)
+{
+	string Ik1 = ciag1;
+	string IIk1 = ciag1;
+	string IIIk1 = ciag1;
+	string IVk1 = ciag1;
+
+	Ik1.erase(4, 12);
+	IIk1.erase(8, 8);
+	IIk1.erase(0, 4);
+	IIIk1.erase(12, 4);
+	IIIk1.erase(0, 8);
+	IVk1.erase(0, 12);
+
+	//klucz 1 rundy
+	string kopia = IVk1;
+
+	SBoxE(kopia);
+	//cout << "kopia:" << kopia; //SBoxE dziala prawidlowo
+	string dodanie = "0001";
+
+	auto WIk1 = bitset<4>(Ik1) ^ bitset<4>(kopia);
+	WIk1 = WIk1 ^ bitset<4>(dodanie);
+	string WSIk1 = WIk1.to_string();
+
+	auto WIIk1 = bitset<4>(IIk1) ^ bitset<4>(WSIk1);
+	string WSIIk1 = WIIk1.to_string();
+
+	auto WIIIk1 = bitset<4>(IIIk1) ^ bitset<4>(WSIIk1);
+	string WSIIIk1 = WIIIk1.to_string();
+
+	auto WIVk1 = bitset<4>(IVk1) ^ bitset<4>(WSIIIk1);
+	string WSIVk1 = WIVk1.to_string();
+
+	cout << WSIk1 << "\t" << WSIIk1 << "\t" << WSIIIk1 << "\t" << WSIVk1;
+	//klucz 2 rundy
+
+}
+
 int main()
 {
 
@@ -324,8 +393,8 @@ int main()
 	string klucz1 = "1100000011";
 	string klucz2;
 
-	string test1 = "1011";
-	string test2 = "1111";
+	string test1 = "0010";
+	string test2 = "0001";
 
 	int tab_ciag[8];
 
@@ -338,8 +407,8 @@ int main()
 
 	//Werdykt...................Dodawanie binarne dzia³a :3 // Nie nazwalbym tego nawet dodawaniem. To jest po prostu operacja XoR.
 
-	string ciag1 = RutynoweWejscie(4);
-	string ciag2 = RutynoweWejscie(4);
+	//string ciag1 = RutynoweWejscie(4);
+	//string ciag2 = RutynoweWejscie(4);
 	string ciag3 = RutynoweWejscie(16);
 	string ciag4 = RutynoweWejscie(16);
 
@@ -354,6 +423,8 @@ int main()
 
 	cout << "\n\n\nProsze podac klucz deszyfrujacy" << deszyfrowanie;
 	cin >> deszyfrowanie;
+
+	GeneracjaKluczaIiII(deszyfrowanie);
 
 	int length2 = deszyfrowanie.length();
 	if (length2 < 8)
