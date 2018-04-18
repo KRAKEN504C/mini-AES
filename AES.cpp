@@ -359,6 +359,8 @@ void GeneracjaKluczaIiII(string ciag1)
 	IIIk1.erase(0, 8);
 	IVk1.erase(0, 12);
 
+	//cout << Ik1 << IIk1 << IIIk1 << IVk1 << endl; //Dzielenie na czesci jest ok.
+
 	//klucz 1 rundy
 	string kopia = IVk1;
 
@@ -366,20 +368,20 @@ void GeneracjaKluczaIiII(string ciag1)
 	//cout << "kopia:" << kopia; //SBoxE dziala prawidlowo
 	string dodanie = "0001";
 
-	auto WIk1 = bitset<4>(Ik1) ^ bitset<4>(kopia);
-	WIk1 = WIk1 ^ bitset<4>(dodanie);
-	string WSIk1 = WIk1.to_string();
+	auto Wynik00 = bitset<4>(Ik1) ^ bitset<4>(kopia);
+	Wynik00 = Wynik00 ^ bitset<4>(dodanie);
+	string WynikS00 = Wynik00.to_string();
 
-	auto WIIk1 = bitset<4>(IIk1) ^ bitset<4>(WSIk1);
-	string WSIIk1 = WIIk1.to_string();
+	auto Wynik10 = bitset<4>(IIk1) ^ bitset<4>(WynikS00);
+	string WynikS10 = Wynik10.to_string();
 
-	auto WIIIk1 = bitset<4>(IIIk1) ^ bitset<4>(WSIIk1);
-	string WSIIIk1 = WIIIk1.to_string();
+	auto Wynik01 = bitset<4>(IIIk1) ^ bitset<4>(WynikS10);
+	string WynikS01 = Wynik01.to_string();
 
-	auto WIVk1 = bitset<4>(IVk1) ^ bitset<4>(WSIIIk1);
-	string WSIVk1 = WIVk1.to_string();
+	auto Wynik11 = bitset<4>(IVk1) ^ bitset<4>(WynikS01);
+	string WynikS11 = Wynik11.to_string();
 
-	cout << WSIk1 << "\t" << WSIIk1 << "\t" << WSIIIk1 << "\t" << WSIVk1;
+	cout << WynikS00 << "\t" << WynikS10 << "\t" << WynikS01 << "\t" << WynikS11;
 	//klucz 2 rundy
 
 }
