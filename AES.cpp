@@ -365,24 +365,57 @@ void GeneracjaKluczaIiII(string ciag1)
 	string kopia = IVk1;
 
 	SBoxE(kopia);
-	//cout << "kopia:" << kopia; //SBoxE dziala prawidlowo
+	cout << "kopia:" << kopia << endl; //SBoxE dziala prawidlowo
 	string dodanie = "0001";
+
+	/*
+		Na Przyszlosc:
+		[0,0] - pierwsza wartosc (lewy gorny rog)
+		[0,1] - druga wartosc (prawy gorny rog)
+		[1,0] - trzecia wartosc (lewy dolny rog)
+		[1,1] - czwarta wartosc (prawy dolny rog)
+	*/
+
+
+
 
 	auto Wynik00 = bitset<4>(Ik1) ^ bitset<4>(kopia);
 	Wynik00 = Wynik00 ^ bitset<4>(dodanie);
 	string WynikS00 = Wynik00.to_string();
 
-	auto Wynik10 = bitset<4>(IIk1) ^ bitset<4>(WynikS00);
+	auto Wynik10 = bitset<4>(IIIk1) ^ bitset<4>(WynikS00);
 	string WynikS10 = Wynik10.to_string();
 
-	auto Wynik01 = bitset<4>(IIIk1) ^ bitset<4>(WynikS10);
+	auto Wynik01 = bitset<4>(IIk1) ^ bitset<4>(WynikS10);
 	string WynikS01 = Wynik01.to_string();
 
 	auto Wynik11 = bitset<4>(IVk1) ^ bitset<4>(WynikS01);
 	string WynikS11 = Wynik11.to_string();
 
-	cout << WynikS00 << "\t" << WynikS10 << "\t" << WynikS01 << "\t" << WynikS11;
+	cout << WynikS00 << "\t" << WynikS01 << "\t" << WynikS10 << "\t" << WynikS11 << endl;
+
 	//klucz 2 rundy
+
+	string dodanie2 = "0010";
+	string kopia2 = WynikS11;
+	SBoxE(kopia2);
+
+	auto Wynik2_00 = bitset<4>(WynikS00) ^ bitset<4>(kopia2);
+	Wynik2_00 = Wynik2_00 ^ bitset<4>(dodanie2);
+	string WynikS2_00 = Wynik2_00.to_string();
+
+	auto Wynik2_10 = bitset<4>(WynikS10) ^ bitset<4>(WynikS2_00);
+	string WynikS2_10 = Wynik2_10.to_string();
+
+	auto Wynik2_01 = bitset<4>(WynikS01) ^ bitset<4>(WynikS2_10);
+	string WynikS2_01 = Wynik2_01.to_string();
+
+	auto Wynik2_11 = bitset<4>(WynikS11) ^ bitset<4>(WynikS2_01);
+	string WynikS2_11 = Wynik2_11.to_string();
+
+	cout << WynikS2_00 << "\t" << WynikS2_01 << "\t" << WynikS2_10 << "\t" << WynikS2_11 << endl;
+
+
 
 }
 
