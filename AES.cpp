@@ -28,7 +28,7 @@ string RutynoweWejscie(int liczba)
 	return ciag;
 }
 
-string dodawanie16(string &ciag1, string ciag2)
+string dodawanie16(string ciag1, string ciag2)
 {
 	string Ik1 = ciag1;
 	string IIk1 = ciag1;
@@ -94,12 +94,13 @@ string konwersjamod(int pity4)
 		pity4 /= 10;
 	}
 
+	
 	cout << endl;
 	for (int i = 0; i < 7; i++)
 	{
 		cout << tab7[i];
 	}
-
+	
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -115,6 +116,7 @@ string konwersjamod(int pity4)
 				tab7[j] %= 2;
 			}
 			cout << endl;
+			
 			for (int i = 0; i < 7; i++)
 			{
 				cout << tab7[i];
@@ -123,17 +125,21 @@ string konwersjamod(int pity4)
 		}
 	}
 
-	//cout << endl << pity4 << endl;
+	cout << endl << pity4 << endl;
 
 	for (int i = 3; i < 7; i++)
 	{
 		wynik += tab7[i];
 	}
+
+	
 	cout << endl << "wynik: ";
 	for (int i = 3; i < 7; i++)
 	{
 		cout << tab7[i];
 	}
+
+	cout << "wynik real: " << wynik;
 
 	return wynik;
 
@@ -141,10 +147,8 @@ string konwersjamod(int pity4)
 
 void Wyluskiwanie(string osiemcyfr, string &converter, int ile)
 {
-	//cout << "TESTY\n";
 	for (int i = 0; i < ile; i++)
 	{
-		//cout<<(int)osiemcyfr[i];
 		if (osiemcyfr[i] == 0)
 		{
 			osiemcyfr[i] = 48;
@@ -153,7 +157,6 @@ void Wyluskiwanie(string osiemcyfr, string &converter, int ile)
 		{
 			osiemcyfr[i] = 49;
 		}
-		//cout << osiemcyfr[i];
 	}
 	converter = osiemcyfr;
 }
@@ -201,6 +204,8 @@ string Mnozenie(string ciag1, string ciag2)
 	unsigned int IVw;
 	//mnozonko
 
+	cout << "Pierwszy ciag: ";
+
 	unsigned int Im1 = Il1 * Il2;
 	string sIm1 = konwersjamod(Im1);
 	unsigned int Im2 = IIl1 * Il2;
@@ -209,6 +214,8 @@ string Mnozenie(string ciag1, string ciag2)
 	string sIm3 = konwersjamod(Im3);
 	unsigned int Im4 = IVl1 * IIIl2;
 	string sIm4 = konwersjamod(Im4);
+
+	cout << "drugi ciag: ";
 
 	unsigned int IIm1 = Il1 * IIl2;
 	string sIIm1 = konwersjamod(IIm1);
@@ -228,9 +235,10 @@ string Mnozenie(string ciag1, string ciag2)
 	Wyluskiwanie(dododania1, dododania1, 16);
 	Wyluskiwanie(dododania2, dododania2, 16);
 
-	cout << "dodawanie:" << dododania1 << "\n" << dododania2 << endl;
+	//cout << "dodawanie:" << dododania1 << "\n" << dododania2 << endl;
 
 	string wynik = dodawanie16(dododania1, dododania2);
+	cout << "wynik mnozenia: " << wynik ;
 
 	return wynik;
 }
@@ -251,6 +259,7 @@ void operacjaZK(string &ciag1)
 
 	ciag1 = "";
 	ciag1 = Ik1 + IIk1 + IVk1 + IIIk1;
+	cout << ciag1;
 }
 
 void SBoxE(string &ciag1)
@@ -315,7 +324,7 @@ void SBoxD(string &ciag1)
 
 }
 
-void OperacjaFSBox(int X, string ciag1)
+void OperacjaFSBox(int X, string &ciag1)
 {
 	string Ik1 = ciag1;
 	string IIk1 = ciag1;
@@ -343,9 +352,11 @@ void OperacjaFSBox(int X, string ciag1)
 		SBoxD(IIIk1);
 		SBoxD(IVk1);
 	}
+	cout << Ik1 << IIk1 << IIIk1 << IVk1 << endl;
+	ciag1 = Ik1 + IIk1 + IIIk1 + IVk1;
 }
 
-void GeneracjaKluczaIiII(string ciag1)
+void GeneracjaKluczaIiII(string ciag1, string &Klucz1, string &Klucz2)
 {
 	string Ik1 = ciag1;
 	string IIk1 = ciag1;
@@ -392,7 +403,10 @@ void GeneracjaKluczaIiII(string ciag1)
 	auto Wynik11 = bitset<4>(IVk1) ^ bitset<4>(WynikS01);
 	string WynikS11 = Wynik11.to_string();
 
-	cout << WynikS00 << "\t" << WynikS01 << "\t" << WynikS10 << "\t" << WynikS11 << endl;
+	//cout << WynikS00 << "\t" << WynikS01 << "\t" << WynikS10 << "\t" << WynikS11 << endl;
+
+	Klucz1.erase();
+	Klucz1 += WynikS00 + WynikS01 + WynikS10 + WynikS11;
 
 	//klucz 2 rundy
 
@@ -413,9 +427,15 @@ void GeneracjaKluczaIiII(string ciag1)
 	auto Wynik2_11 = bitset<4>(WynikS11) ^ bitset<4>(WynikS2_01);
 	string WynikS2_11 = Wynik2_11.to_string();
 
-	cout << WynikS2_00 << "\t" << WynikS2_01 << "\t" << WynikS2_10 << "\t" << WynikS2_11 << endl;
+	//cout << WynikS2_00 << "\t" << WynikS2_01 << "\t" << WynikS2_10 << "\t" << WynikS2_11 << endl;
 
+	Klucz2.erase();
+	Klucz2 += WynikS2_00 + WynikS2_01 + WynikS2_10 + WynikS2_11;
 
+}
+
+void ManipualcjeNaTekscie()
+{
 
 }
 
@@ -426,13 +446,21 @@ int main()
 
 	string ciag = "0100100101001";
 	string klucz1 = "1100000011";
+	string m = "0011001000100011";
 	string klucz2;
+
+	string Klucz1R;
+	string Klucz2R;
 
 	string test1 = "0010";
 	string test2 = "0001";
 
+	string tekstPocz;
+
 	int tab_ciag[8];
 
+	cout << "Prosze wprowadzic tekst poczatkowy: \t";
+	cin >> tekstPocz;
 
 	//cout << "\n TEST: liczba wydrukowana ze stringa: " << klucz1 << "\t Ta sama liczba tylko ze wydrukowana w systemie dwojkowym: " << bitset<10>(klucz1) << "\n";
 
@@ -453,24 +481,67 @@ int main()
 
 	string backupKlucz = klucz1;
 	string backupKlucz2 = klucz2;
-	string deszyfrowanie;
+	string kluczPocz;
 
 
-	cout << "\n\n\nProsze podac klucz deszyfrujacy" << deszyfrowanie;
-	cin >> deszyfrowanie;
+	cout << "\n\n\nProsze podac klucz poczatkowy" << kluczPocz;
+	cin >> kluczPocz;
 
-	GeneracjaKluczaIiII(deszyfrowanie);
+	GeneracjaKluczaIiII(kluczPocz,Klucz1R,Klucz2R);
 
-	int length2 = deszyfrowanie.length();
+	cout << Klucz1R << endl << Klucz2R << endl;
+
+	tekstPocz = dodawanie16(tekstPocz, kluczPocz);
+	//1 == E 
+	//0 == D
+	OperacjaFSBox(1, tekstPocz);
+
+	operacjaZK(tekstPocz);
+
+	tekstPocz = Mnozenie(m, tekstPocz); // cos jest nie tak z mnozeniem
+
+	tekstPocz = dodawanie16(tekstPocz, Klucz1R);
+
+	OperacjaFSBox(1, tekstPocz);
+
+	operacjaZK(tekstPocz);
+
+	tekstPocz = dodawanie16(tekstPocz, Klucz2R);
+
+	string szyfrogram = tekstPocz;
+	//deszyfrowanie
+
+	cout << endl << "deszyfrowanie: " << endl;
+
+	szyfrogram = dodawanie16(szyfrogram, Klucz2R);
+
+	operacjaZK(szyfrogram);
+
+	OperacjaFSBox(0, szyfrogram);
+
+	szyfrogram = dodawanie16(szyfrogram, Klucz1R);
+
+	szyfrogram = Mnozenie(m, szyfrogram);
+
+	operacjaZK(szyfrogram);
+
+	OperacjaFSBox(0, szyfrogram);
+
+	szyfrogram = dodawanie16(szyfrogram, kluczPocz);
+
+
+
+	/*
+	int length2 = kluczPocz.length();
 	if (length2 < 8)
 	{
-		for (int i = length2; i < 8; i++) deszyfrowanie += '0';
+		for (int i = length2; i < 8; i++) kluczPocz += '0';
 	}
 	if (length2 > 8)
 	{
-		for (int i = length2; i > 8; i--) deszyfrowanie.erase(deszyfrowanie.begin() + 8, deszyfrowanie.end());
+		for (int i = length2; i > 8; i--) kluczPocz.erase(kluczPocz.begin() + 8, kluczPocz.end());
 	}
-
+	*/
 
 	_getch();
 
