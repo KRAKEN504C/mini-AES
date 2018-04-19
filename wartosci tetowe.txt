@@ -1,3 +1,31 @@
+0011110011000011
 1011001011110110
 1111000011110000
 1011001011110110
+
+
+
+
+
+
+Klucz Poczatkowy:
+
+0011110011000011
+
+
+
+
+
+test:
+
+0011110011000011
+0011000011110001
+0011001000100011
+
+
+
+
+	iloczyn[0][0] = dodawanie(mnozenie(a[0][0], b[0][0]), mnozenie(a[0][1], b[1][0]));
+	iloczyn[0][1] = dodawanie(mnozenie(a[0][0], b[0][1]), mnozenie(a[0][1], b[1][1]));
+	iloczyn[1][0] = dodawanie(mnozenie(a[1][0], b[0][0]), mnozenie(a[1][1], b[1][0]));
+	iloczyn[1][1] = dodawanie(mnozenie(a[1][0], b[0][1]), mnozenie(a[1][1], b[1][1]));
