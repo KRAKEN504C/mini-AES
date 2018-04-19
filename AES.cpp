@@ -83,6 +83,7 @@ string dodawanie16(string ciag1, string ciag2)
 string konwersjamod(int pity4)
 {
 	int tab7[7];
+	int tabtest[4]={0};
 	int checker;
 	string wynik = "";
 
@@ -116,13 +117,13 @@ string konwersjamod(int pity4)
 				tab7[j] %= 2;
 			}
 			cout << endl;
-			
+			tabtest[i] = 1;
 			for (int i = 0; i < 7; i++)
 			{
 				cout << tab7[i];
-			}
-			
+			}	
 		}
+		//else { tabtest[i] = 0; }
 	}
 
 	cout << endl << pity4 << endl;
@@ -139,7 +140,13 @@ string konwersjamod(int pity4)
 		cout << tab7[i];
 	}
 
-	cout << "wynik real: " << wynik;
+	cout << endl <<  "wynik real: " << wynik;
+
+	cout << endl << "testowy wynik: ";
+	for (int i = 0; i <= 3; i++)
+	{
+		cout << tabtest[i];
+	}
 
 	return wynik;
 
@@ -460,10 +467,6 @@ void GeneracjaKluczaIiII(string ciag1, string &Klucz1, string &Klucz2)
 
 }
 
-void ManipualcjeNaTekscie()
-{
-
-}
 
 int main()
 {
@@ -499,62 +502,63 @@ int main()
 	//string ciag1 = RutynoweWejscie(4);
 	//string ciag2 = RutynoweWejscie(4);
 
-	string ciag3 = RutynoweWejscie(16);
-	string ciag4 = RutynoweWejscie(16);
 
-	string Pododawaniu = dodawanie16(ciag3, ciag4);
+	//string ciag3 = RutynoweWejscie(16);
+	//string ciag4 = RutynoweWejscie(16);
 
-	string wynik = Mnozenie(ciag3,ciag4);
+	//string Pododawaniu = dodawanie16(ciag3, ciag4);
 
-	string backupKlucz = klucz1;
-	string backupKlucz2 = klucz2;
-	string kluczPocz;
+	//string wynik = Mnozenie(ciag3,ciag4);
+
+	//string backupKlucz = klucz1;
+	//string backupKlucz2 = klucz2;
+	//string kluczPocz;
 
 
-	cout << "\n\n\nProsze podac klucz poczatkowy" << kluczPocz;
-	cin >> kluczPocz;
+	//cout << "\n\n\nProsze podac klucz poczatkowy" << kluczPocz;
+	//cin >> kluczPocz;
 
-	GeneracjaKluczaIiII(kluczPocz,Klucz1R,Klucz2R);
+	//GeneracjaKluczaIiII(kluczPocz,Klucz1R,Klucz2R);
 
-	cout << Klucz1R << endl << Klucz2R << endl;
+	//cout << Klucz1R << endl << Klucz2R << endl;
 
-	tekstPocz = dodawanie16(tekstPocz, kluczPocz);
-	//1 == E 
-	//0 == D
-	OperacjaFSBox(1, tekstPocz);
+	//tekstPocz = dodawanie16(tekstPocz, kluczPocz);
+	////1 == E 
+	////0 == D
+	//OperacjaFSBox(1, tekstPocz);
 
-	operacjaZK(tekstPocz);
+	//operacjaZK(tekstPocz);
 
-	tekstPocz = Mnozenie(m, tekstPocz); // cos jest nie tak z mnozeniem
+	//tekstPocz = Mnozenie(m, tekstPocz); // cos jest nie tak z mnozeniem
 
-	tekstPocz = dodawanie16(tekstPocz, Klucz1R);
+	//tekstPocz = dodawanie16(tekstPocz, Klucz1R);
 
-	OperacjaFSBox(1, tekstPocz);
+	//OperacjaFSBox(1, tekstPocz);
 
-	operacjaZK(tekstPocz);
+	//operacjaZK(tekstPocz);
 
-	tekstPocz = dodawanie16(tekstPocz, Klucz2R);
+	//tekstPocz = dodawanie16(tekstPocz, Klucz2R);
 
-	string szyfrogram = tekstPocz;
-	//deszyfrowanie
+	//string szyfrogram = tekstPocz;
+	////deszyfrowanie
 
-	cout << endl << "deszyfrowanie: " << endl;
+	//cout << endl << "deszyfrowanie: " << endl;
 
-	szyfrogram = dodawanie16(szyfrogram, Klucz2R);
+	//szyfrogram = dodawanie16(szyfrogram, Klucz2R);
 
-	operacjaZK(szyfrogram);
+	//operacjaZK(szyfrogram);
 
-	OperacjaFSBox(0, szyfrogram);
+	//OperacjaFSBox(0, szyfrogram);
 
-	szyfrogram = dodawanie16(szyfrogram, Klucz1R);
+	//szyfrogram = dodawanie16(szyfrogram, Klucz1R);
 
-	szyfrogram = Mnozenie(m, szyfrogram);
+	//szyfrogram = Mnozenie(m, szyfrogram);
 
-	operacjaZK(szyfrogram);
+	//operacjaZK(szyfrogram);
 
-	OperacjaFSBox(0, szyfrogram);
+	//OperacjaFSBox(0, szyfrogram);
 
-	szyfrogram = dodawanie16(szyfrogram, kluczPocz);
+	//szyfrogram = dodawanie16(szyfrogram, kluczPocz);
 
 
 
@@ -618,6 +622,164 @@ int main()
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//mnozenie Papryk
+
+void mnozenie_macierzy(int tablica1[], int tablica2[], int tabilca_wynikowa[], int lewicowy_polityk, int prawicowy_politk) {
+	int mnozenie[4][8];//TABLICA PRZECHOWUJACA POJEDYNCZE WYMNAZANIE
+
+	for (int i = 0; i < 4; i++) {//ZEROWANIE TABLICY PRZECHOWUJACEJ POJEDYNCZE WYMNOZENIE
+		for (int j = 0; j < 7; j++)
+			mnozenie[i][j] = 0;
+	}
+
+	for (int j = 0; j < 4; j++) {//OBLICZANIE POJEDYNCZYCH WYMNOZEN
+		if (tablica2[j + prawicowy_politk] == 1) {
+			for (int i = 0; i < 4; i++)
+				mnozenie[j][i + j] = tablica1[i + lewicowy_polityk];
+		}
+	}
+
+	for (int i = 0; i < 7; i++)//SUMA MODULO POJEDYNCZYCH WYMNOZEN
+		tabilca_wynikowa[i] = (((mnozenie[0][i] + mnozenie[1][i]) % 2 + mnozenie[2][i]) % 2 + mnozenie[3][i]) % 2;
+
+	//SPRAWDZENIE
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 7; j++)
+			cout << mnozenie[i][j];
+		cout << endl;
+	}
+}
+
+void konwerter(int wynik_m[], string &wynik)
+{
+	string tymczasowka;
+	for (int i = 0; i < 7; i++)
+	{
+		tymczasowka = to_string(wynik_m[i]);
+		wynik += tymczasowka;
+	}
+}
+
+
+
+void dzielenie(int tablica_przed[], int tablica_po[]) {
+	int dzielnik[5] = { 1, 0, 0, 1, 1 };
+	for (int y = 0; y < 3; y++) {
+		if (tablica_przed[y] == 1) {
+			for (int i = 0; i < 5; i++) {
+				tablica_przed[y + i] ^= dzielnik[i];
+			}
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+		tablica_po[i] = tablica_przed[i + 3];
+
+}
+
+void MM(int macierz[], int ostateczny_wynik[]) {
+	int m[16] = { 0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,1 };
+	int wynik_mnozenia1[7], wynik_mnozenia2[7], wynik_mnozenia3[7], wynik_mnozenia4[7], wynik_mnozenia5[7], wynik_mnozenia6[7], wynik_mnozenia7[7], wynik_mnozenia8[7];
+	int wynik_dodwania1[7], wynik_dodwania2[7], wynik_dodwania3[7], wynik_dodwania4[7], wynik_dodwania5[7], wynik_dodwania6[7], wynik_dodwania7[7], wynik_dodwania8[7];
+	int reszta_z_dzielenia1[4], reszta_z_dzielenia2[4], reszta_z_dzielenia3[4], reszta_z_dzielenia4[4];
+
+	mnozenie_macierzy(m, macierz, wynik_mnozenia1, 0, 0);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia2, 4, 8);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia3, 0, 4);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia4, 4, 12);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia5, 8, 0);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia6, 12, 8);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia7, 8, 4);
+	mnozenie_macierzy(m, macierz, wynik_mnozenia8, 12, 12);
+
+	string wyniktekstdodawania1, wyniktekstdodawania2, wyniktekstdodawania3, wyniktekstdodawania4;
+	string wynik_m_tekst1, wynik_m_tekst2, wynik_m_tekst3, wynik_m_tekst4, wynik_m_tekst5, wynik_m_tekst6, wynik_m_tekst7, wynik_m_tekst8;
+	konwerter(wynik_mnozenia1, wynik_m_tekst1);
+	konwerter(wynik_mnozenia2, wynik_m_tekst2);
+	konwerter(wynik_mnozenia3, wynik_m_tekst3);
+	konwerter(wynik_mnozenia4, wynik_m_tekst4);
+	konwerter(wynik_mnozenia5, wynik_m_tekst5);
+	konwerter(wynik_mnozenia6, wynik_m_tekst6);
+	konwerter(wynik_mnozenia7, wynik_m_tekst7);
+	konwerter(wynik_mnozenia8, wynik_m_tekst8);
+
+	wyniktekstdodawania1 = dodawanie16(wynik_m_tekst1, wynik_m_tekst2);
+	wyniktekstdodawania1 = dodawanie16(wynik_m_tekst3, wynik_m_tekst4);
+	wyniktekstdodawania1 = dodawanie16(wynik_m_tekst5, wynik_m_tekst6);
+	wyniktekstdodawania1 = dodawanie16(wynik_m_tekst7, wynik_m_tekst8);
+
+	dzielenie(wynik_dodwania1, reszta_z_dzielenia1);
+	dzielenie(wynik_dodwania2, reszta_z_dzielenia2);
+	dzielenie(wynik_dodwania3, reszta_z_dzielenia3);
+	dzielenie(wynik_dodwania4, reszta_z_dzielenia4);
+
+	for (int i = 0; i < 4; i++) {
+		ostateczny_wynik[i] = reszta_z_dzielenia1[i];
+		ostateczny_wynik[4 + i] = reszta_z_dzielenia2[i];
+		ostateczny_wynik[8 + i] = reszta_z_dzielenia3[i];
+		ostateczny_wynik[12 + i] = reszta_z_dzielenia4[i];
+	}
+}
+
+
+
+
+
+
+
+
+
+
+//mnozenie Jajosz
+/*
+std::string Mnoz::modulo(std::string a, std::string b)
+{
+	std::string begin = mnoz_sobie(a, b);
+	int x = index(begin);
+	std::string end = "";
+	Simple ob;
+	bool czykoniec = false;
+	std::string wskaznik = "";
+	int j = 0;
+	std::string lol;
+	while (!czykoniec)
+	{
+		int w;
+		for (int i = 0; i < 4; i++)
+			if (mnoz_sobie(ob.digits[i], mod)[x] == '1')
+			{
+				w = i;
+				end = mnoz_sobie(ob.digits[i], mod);
+				std::cout << "end: " << end << std::endl;
+				begin = ob.dodaj(begin, end, 7);
+				x = index(begin);
+				std::cout << "begin: " << begin << std::endl;
+			}
+		if (j == 0)wskaznik = ob.digits[w];
+		else wskaznik = ob.dodaj(wskaznik, ob.digits[w], 4);
+		if (ob.dodaj(mnoz_sobie(wskaznik, mod), begin, 7) == mnoz_sobie(a, b) && check(begin)) czykoniec = true;
+		std::cout << "w: " << wskaznik << " lol: " << lol << std::endl;
+		j++;
+	}
+	std::string wynik = std::to_string(begin[3] - '0') + std::to_string(begin[4] - '0')
+		+ std::to_string(begin[5] - '0') + std::to_string(begin[6] - '0');
+	return wynik;
+}
+
+*/
 
 
 
