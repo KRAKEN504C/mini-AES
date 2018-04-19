@@ -197,11 +197,6 @@ string Mnozenie(string ciag1, string ciag2)
 	unsigned int IIl2 = stoi(IIk2);
 	unsigned int IIIl2 = stoi(IIIk2);
 	unsigned int IVl2 = stoi(IVk2);
-
-	unsigned int Iw;
-	unsigned int IIw;
-	unsigned int IIIw;
-	unsigned int IVw;
 	//mnozonko
 
 	cout << "Pierwszy ciag: ";
@@ -225,22 +220,53 @@ string Mnozenie(string ciag1, string ciag2)
 	string sIIm3 = konwersjamod(IIm3);
 	unsigned int IIm4 = IVl1 * IVl2;
 	string sIIm4 = konwersjamod(IIm4);
+
+
+	/*string tymczasowka = "";
+	cout << endl << sIm1 << "\t" << sIm2 << "\t" << sIm3 << "\t" << sIm4 << endl;
+
+	auto Iw = bitset<4>(sIm1) ^ bitset<4>(sIm2);
+	auto IIw = bitset<4>(sIm3) ^ bitset<4>(sIm4);
+	auto IIIw = bitset<4>(sIIm1) ^ bitset<4>(sIIm2);
+	auto IVw = bitset<4>(sIIm3) ^ bitset<4>(sIIm4);
+
+	string sIw = Iw.to_string();
+	string sIIw = IIw.to_string();
+	string sIIIw = IIIw.to_string();
+	string sIVw = IVw.to_string();
+
+	tymczasowka += sIw + sIIw + sIIIw + sIVw;
+
+	cout << "test: tymczasowka: " << tymczasowka << endl;*/
 	
 	string dododania1 = "";
 	string dododania2 = "";
 
-	dododania1 = sIm1 + sIm2 + sIm3 + sIm4;
-	dododania2 = sIIm1 + sIIm2 + sIIm3 + sIIm4;
+	dododania1 = sIm1 + sIm3 + sIIm1 + sIIm3;
+	dododania2 = sIm2 + sIm4 + sIIm2 + sIIm4;
 
 	Wyluskiwanie(dododania1, dododania1, 16);
 	Wyluskiwanie(dododania2, dododania2, 16);
 
-	//cout << "dodawanie:" << dododania1 << "\n" << dododania2 << endl;
+	cout << "dodawanie:" << dododania1 << "\n" << dododania2 << endl;
 
 	string wynik = dodawanie16(dododania1, dododania2);
 	cout << "wynik mnozenia: " << wynik ;
 
 	return wynik;
+}
+
+string Mnozenie4(string ciag1, string ciag2)
+{
+	unsigned int CiagI = stoi(ciag1);
+	unsigned int CiagII = stoi(ciag2);
+
+	unsigned int Im1 = CiagI * CiagII;
+	string sIm1 = konwersjamod(Im1);
+
+	cout <<"\n\n\nmnozenie dwoch czworek: "<< sIm1 << endl;
+
+	return sIm1;
 }
 
 void operacjaZK(string &ciag1)
@@ -472,6 +498,7 @@ int main()
 
 	//string ciag1 = RutynoweWejscie(4);
 	//string ciag2 = RutynoweWejscie(4);
+
 	string ciag3 = RutynoweWejscie(16);
 	string ciag4 = RutynoweWejscie(16);
 
@@ -530,6 +557,50 @@ int main()
 	szyfrogram = dodawanie16(szyfrogram, kluczPocz);
 
 
+
+
+	//zadanie 1 
+
+	string bity4a = RutynoweWejscie(4);
+	string bity4b = RutynoweWejscie(4);
+
+	bity4a = Mnozenie4(bity4a, bity4b);
+	string backup = bity4a;
+
+	SBoxE(bity4a);
+	SBoxD(backup);
+
+	//zadanie 2
+
+	string t = "0011110011000011";
+	string brakujacyklucz = "011010111110";
+	string A, B, C, D;
+
+	cout << "Prosze podac brakujace aelementy klucza: ";
+	cout << endl << "A: "; cin >> A;
+	cout << endl << "B: "; cin >> B;
+	cout << endl << "C: "; cin >> C;
+	cout << endl << "D: "; cin >> D;
+
+	brakujacyklucz.insert(0, A);
+	brakujacyklucz.insert(5, B);
+	brakujacyklucz.insert(11, C);
+	brakujacyklucz.insert(12, D);
+
+	cout << endl << "brakujacyklucz" << brakujacyklucz << endl;
+
+	GeneracjaKluczaIiII(brakujacyklucz, Klucz1R, Klucz2R);
+	cout << Klucz1R << endl << Klucz2R << endl;
+	t = dodawanie16(t, brakujacyklucz);
+	//1 == E 
+	//0 == D
+	OperacjaFSBox(1, t);
+	operacjaZK(t);
+	t = Mnozenie(m, t); // cos jest nie tak z mnozeniem
+	t = dodawanie16(t, Klucz1R);
+	OperacjaFSBox(1, t);
+	operacjaZK(t);
+	t = dodawanie16(t, Klucz2R);
 
 	/*
 	int length2 = kluczPocz.length();
